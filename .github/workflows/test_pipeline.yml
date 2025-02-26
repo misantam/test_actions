@@ -18,7 +18,6 @@ jobs:
       - name: Generate output
         id: gen_output
         run: |
-          echo "prefix=$PREFIX"
           echo "prefix=$PREFIX" >> "$GITHUB_OUTPUT"
   reusable_call_job:
     name: Reusable call job
@@ -40,3 +39,19 @@ jobs:
           echo "OUTPUT1: $OUTPUT1"
           echo "OUTPUT2: $OUTPUT2"
           echo ${{ needs.reusable_call_job.outputs.output1 }} ${{ needs.reusable_call_job.outputs.output2 }}
+  generate_tag:
+    runs-on: ubuntu-latest
+    needs: reusable_call_job
+    steps:
+      - name: Create tag
+        uses: actions/github-script@v5
+        env:
+            OUTPUT1: ${{ needs.reusable_call_job.outputs.output1 }}
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/$OUTPUT1',
+              sha: context.sha
+            })
