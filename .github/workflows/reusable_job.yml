@@ -1,21 +1,49 @@
-name: Reusable workflow example
+# name: Reusable workflow example
+
+# on:
+#   workflow_call:
+#     inputs:
+#       prefix:
+#         required: true
+#         type: string
+
+# jobs:
+#   job1:
+#     runs-on: ubuntu-latest
+#     # Map a step output to a job output
+#     outputs:
+#       output1: ${{ steps.step1.outputs.test }}
+#       output2: ${{ steps.step2.outputs.test }}
+#     steps:
+#       - id: step1
+#         run: echo "test=${{ inputs.prefix }}_hello" >> "$GITHUB_OUTPUT"
+#       - id: step2
+#         run: echo "test=${{ inputs.prefix }}_world" >> "$GITHUB_OUTPUT"
+
+name: Reusable workflow
 
 on:
   workflow_call:
-    inputs:
-      prefix:
-        required: true
-        type: string
+    # Map the workflow outputs to job outputs
+    outputs:
+      firstword:
+        description: "The first output string"
+        value: ${{ jobs.example_job.outputs.output1 }}
+      secondword:
+        description: "The second output string"
+        value: ${{ jobs.example_job.outputs.output2 }}
 
 jobs:
-  job1:
+  example_job:
+    name: Generate output
     runs-on: ubuntu-latest
-    # Map a step output to a job output
+    # Map the job outputs to step outputs
     outputs:
-      output1: ${{ steps.step1.outputs.test }}
-      output2: ${{ steps.step2.outputs.test }}
+      output1: ${{ steps.step1.outputs.firstword }}
+      output2: ${{ steps.step2.outputs.secondword }}
     steps:
       - id: step1
-        run: echo "test=${{ inputs.prefix }}_hello" >> "$GITHUB_OUTPUT"
+        run: echo "firstword=hello" >> $GITHUB_OUTPUT
       - id: step2
-        run: echo "test=${{ inputs.prefix }}_world" >> "$GITHUB_OUTPUT"
+        run: echo "secondword=world" >> $GITHUB_OUTPUT
+
