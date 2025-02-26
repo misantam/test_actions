@@ -24,3 +24,4 @@ jobs:
         run: |
           echo "OUTPUT1: $OUTPUT1"
           echo "OUTPUT2: $OUTPUT2"
+          echo ${{ needs.reusable_call_job.outputs.output1 }} ${{ needs.reusable_call_job.outputs.output2 }}
