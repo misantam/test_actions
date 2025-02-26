@@ -45,7 +45,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Create tag
-        uses: actions/github-script@v5
+        uses: actions/github-script@v7
         env:
             OUTPUT1: ${{ needs.reusable_call_job.outputs.output1 }}
         with:
@@ -53,6 +53,6 @@ jobs:
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: 'refs/tags/123123',
+              ref: 'refs/tags/$OUTPUT1',
               sha: context.sha
             })
