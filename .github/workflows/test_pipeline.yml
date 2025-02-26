@@ -10,8 +10,8 @@ jobs:
   reusable_call_job:
     name: Reusable call job
     uses: ./.github/workflows/reusable_job.yml
-    with:
-      prefix: aaaaaa
+    # with:
+    #   prefix: aaaaaa
   test_vars:
     runs-on: ubuntu-latest
     needs: reusable_call_job

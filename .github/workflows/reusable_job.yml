@@ -2,10 +2,10 @@ name: Reusable workflow example
 
 on:
   workflow_call:
-    inputs:
-      prefix:
-        required: true
-        type: string
+    # inputs:
+    #   prefix:
+    #     required: true
+    #     type: string
 
 jobs:
   job1:
@@ -16,6 +16,8 @@ jobs:
       output2: ${{ steps.step2.outputs.test2 }}
     steps:
       - id: step1
-        run: echo "test1=${{ inputs.prefix }}_hello" >> "$GITHUB_OUTPUT"
+        # run: echo "test1=${{ inputs.prefix }}_hello" >> "$GITHUB_OUTPUT"
+        run: echo "test1=_hello" >> "$GITHUB_OUTPUT"
       - id: step2
-        run: echo "test2=${{ inputs.prefix }}_world" >> "$GITHUB_OUTPUT"
+        run: echo "test2=_world" >> "$GITHUB_OUTPUT"
+        # run: echo "test2=${{ inputs.prefix }}_world" >> "$GITHUB_OUTPUT"
