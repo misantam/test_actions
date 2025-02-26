@@ -1,0 +1,25 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+    
+jobs:
+  reusable call job:
+    id: reusable_call_job
+    uses: ./.github/workflows/reusable_job.yml
+    with:
+      prefix: aaaaaa
+  test_vars:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a multi-line script
+        env:
+            OUTPUT1: ${{needs.reusable_call_job.outputs.output1}}
+            OUTPUT2: ${{needs.reusable_call_job.outputs.output2}}
+        run: |
+          echo "OUTPUT1: $OUTPUT1"
+          echo "OUTPUT2: $OUTPUT2"
