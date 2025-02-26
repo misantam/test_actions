@@ -7,8 +7,10 @@ on:
         required: true
         type: string
     outputs:
-      output1: ${{ jobs.job1.outputs.output1 }}
-      output2: ${{ jobs.job1.outputs.output2 }}
+      output1: 
+        value: ${{ jobs.job1.outputs.output1 }}
+      output2: 
+        value: ${{ jobs.job1.outputs.output2 }}
 
 jobs:
   job1:
