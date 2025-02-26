@@ -18,10 +18,12 @@ jobs:
       - name: Generate output
         id: gen_output
         run: |
-          echo "prefix=${PREFIX}" >> "$GITHUB_OUTPUT"
+          echo "prefix=$PREFIX"
+          echo "prefix=$PREFIX" >> "$GITHUB_OUTPUT"
   reusable_call_job:
     name: Reusable call job
     uses: ./.github/workflows/reusable_job.yml
+    needs: env_vars
     with:
       # prefix: aaaaaa
       prefix: ${{ needs.env_vars.outputs.PREFIX }}
