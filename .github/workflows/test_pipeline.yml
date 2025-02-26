@@ -14,6 +14,7 @@ jobs:
       prefix: aaaaaa
   test_vars:
     runs-on: ubuntu-latest
+    needs: reusable_call_job
     steps:
       - uses: actions/checkout@v4
       - name: Run a multi-line script
