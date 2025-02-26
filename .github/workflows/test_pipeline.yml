@@ -5,13 +5,19 @@ name: CI
 on:
   push:
     branches: [ "main" ]
+
+env:
+  PREFIX: bbbbbbb
     
 jobs:
   reusable_call_job:
     name: Reusable call job
     uses: ./.github/workflows/reusable_job.yml
+    env:
+      PREFIX: ${{ env.PREFIX }}
     with:
-      prefix: aaaaaa
+      # prefix: aaaaaa
+      prefix: $PREFIX
   test_vars:
     runs-on: ubuntu-latest
     needs: reusable_call_job
