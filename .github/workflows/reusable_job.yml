@@ -21,6 +21,6 @@ jobs:
       output2: ${{ steps.step2.outputs.test2 }}
     steps:
       - id: step1
-        run: echo "test1=${{ inputs.prefix }}_hello" >> "$GITHUB_OUTPUT"
+        run: echo "test1=${{ inputs.prefix }}-hello" >> "$GITHUB_OUTPUT"
       - id: step2
-        run: echo "test2=${{ inputs.prefix }}_world" >> "$GITHUB_OUTPUT"
+        run: echo "test2=${{ inputs.prefix }}-world" >> "$GITHUB_OUTPUT"
