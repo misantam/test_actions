@@ -13,6 +13,8 @@ jobs:
   reusable_call_job:
     name: Reusable call job
     uses: ./.github/workflows/reusable_job.yml
+    env:
+      sdd: dsfsfd
     with:
       # prefix: aaaaaa
       prefix: $PREFIX
