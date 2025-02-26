@@ -10,14 +10,21 @@ env:
   PREFIX: bbbbbbb
     
 jobs:
+  env_vars:
+    runs-on: ubuntu-latest
+    outputs:
+      PREFIX: ${{ steps.gen_output.outputs.prefix }}
+    steps:
+      - name: Generate output
+        id: gen_output
+        run: |
+          echo "prefix=${PREFIX}" >> "$GITHUB_OUTPUT"
   reusable_call_job:
     name: Reusable call job
     uses: ./.github/workflows/reusable_job.yml
-    env:
-      sdd: dsfsfd
     with:
       # prefix: aaaaaa
-      prefix: $PREFIX
+      prefix: ${{ needs.env_vars.outputs.PREFIX }}
   test_vars:
     runs-on: ubuntu-latest
     needs: reusable_call_job
