@@ -43,16 +43,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: reusable_call_job
     steps:
-      - uses: actions/checkout@v4
       - name: Create tag
+        uses: actions/github-script@v7
         env:
             OUTPUT1: ${{ needs.reusable_call_job.outputs.output1 }}
-        uses: actions/github-script@v4
         with:
           script: |
-            github.git.createRef({
+            github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/0.0.0",
+              ref: 'refs/tags/$OUTPUT1',
               sha: context.sha
             })
