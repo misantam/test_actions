@@ -7,8 +7,8 @@ on:
     branches: [ "main" ]
     
 jobs:
-  reusable call job:
-    id: reusable_call_job
+  reusable_call_job:
+    name: Reusable call job
     uses: ./.github/workflows/reusable_job.yml
     with:
       prefix: aaaaaa
